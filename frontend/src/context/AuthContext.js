@@ -7,7 +7,6 @@ export const AuthProvider = ({ children }) => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
 
   useEffect(() => {
-    // ตรวจสอบว่ามีข้อมูล user ใน localStorage หรือไม่ ตอนเปิดแอปครั้งแรก
     const storedUser = localStorage.getItem("user");
     if (storedUser) {
       setUser(JSON.parse(storedUser));

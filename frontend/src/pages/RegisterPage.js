@@ -1,16 +1,28 @@
-import React, { useState } from "react";
-import { useNavigate, Link } from "react-router-dom";
+import React, { useState, useContext } from "react";
+import { useNavigate, Link, Navigate } from "react-router-dom";
+import { AuthContext } from "../context/AuthContext";
 
 const RegisterPage = () => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
+
+  const { isAuthenticated } = useContext(AuthContext);
   const navigate = useNavigate();
+
+  if (isAuthenticated) {
+    return <Navigate to="/" replace />;
+  }
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError("");
+
+    if (password.length < 6) {
+      setError("รหัสผ่านต้องมีอย่างน้อย 6 ตัวอักษร");
+      return;
+    }
 
     try {
       const response = await fetch(
@@ -21,7 +33,6 @@ const RegisterPage = () => {
           body: JSON.stringify({ name, email, password }),
         }
       );
-
       const result = await response.json();
 
       if (result.success === 1) {
@@ -36,12 +47,16 @@ const RegisterPage = () => {
   };
 
   return (
-    <div>
-      <h1>สมัครสมาชิก</h1>
+    <div
+      className="form-container"
+      style={{ maxWidth: "450px", margin: "auto" }}
+    >
+      <h1>สร้างบัญชีใหม่</h1>
       <form onSubmit={handleSubmit}>
         <div className="form-group">
-          <label>ชื่อ-นามสกุล</label>
+          <label htmlFor="name">ชื่อ-นามสกุล</label>
           <input
+            id="name"
             type="text"
             value={name}
             onChange={(e) => setName(e.target.value)}
@@ -49,8 +64,9 @@ const RegisterPage = () => {
           />
         </div>
         <div className="form-group">
-          <label>อีเมล</label>
+          <label htmlFor="email">อีเมล</label>
           <input
+            id="email"
             type="email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
@@ -58,8 +74,9 @@ const RegisterPage = () => {
           />
         </div>
         <div className="form-group">
-          <label>รหัสผ่าน</label>
+          <label htmlFor="password">รหัสผ่าน</label>
           <input
+            id="password"
             type="password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
@@ -70,7 +87,7 @@ const RegisterPage = () => {
         <button type="submit" className="btn">
           สมัครสมาชิก
         </button>
-        <p style={{ marginTop: "1rem" }}>
+        <p style={{ textAlign: "center", marginTop: "1.5rem" }}>
           มีบัญชีอยู่แล้ว? <Link to="/login">เข้าสู่ระบบที่นี่</Link>
         </p>
       </form>

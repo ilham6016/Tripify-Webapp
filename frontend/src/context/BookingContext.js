@@ -3,7 +3,6 @@ import React, { createContext, useState } from "react";
 export const BookingContext = createContext();
 
 export const BookingProvider = ({ children }) => {
-  // State ที่จะใช้ร่วมกันทั้งแอปพลิเคชัน
   const [bookingDetails, setBookingDetails] = useState({
     searchParams: null,
     selectedTrip: null,

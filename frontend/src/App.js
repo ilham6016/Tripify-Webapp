@@ -1,13 +1,13 @@
-import React, { useContext } from "react";
-import {
-  BrowserRouter as Router,
-  Routes,
-  Route,
-  Link,
-  useNavigate,
-} from "react-router-dom";
-import { AuthProvider, AuthContext } from "./context/AuthContext";
+import React from "react";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+
+// Import Contexts
+import { AuthProvider } from "./context/AuthContext";
 import { BookingProvider } from "./context/BookingContext";
+
+// Import Components
+import Navbar from "./components/Navbar";
+import PrivateRoute from "./components/PrivateRoute";
 
 // Import Pages
 import HomePage from "./pages/HomePage";
@@ -21,39 +21,6 @@ import RegisterPage from "./pages/RegisterPage";
 // Import CSS
 import "./App.css";
 
-const Navbar = () => {
-  const { isAuthenticated, user, logout } = useContext(AuthContext);
-  const navigate = useNavigate();
-
-  const handleLogout = () => {
-    logout();
-    navigate("/");
-  };
-
-  return (
-    <nav className="navbar">
-      <Link to="/" className="nav-brand">
-        🚐 Vango
-      </Link>
-      <div className="nav-links">
-        {isAuthenticated ? (
-          <>
-            <span>สวัสดี, {user.name}</span>
-            <button onClick={handleLogout} className="nav-button">
-              ออกจากระบบ
-            </button>
-          </>
-        ) : (
-          <>
-            <Link to="/login">เข้าสู่ระบบ</Link>
-            <Link to="/register">สมัครสมาชิก</Link>
-          </>
-        )}
-      </div>
-    </nav>
-  );
-};
-
 function App() {
   return (
     <AuthProvider>
@@ -62,16 +29,21 @@ function App() {
           <Navbar />
           <main className="container">
             <Routes>
-              <Route path="/" element={<HomePage />} />
+              {/* === Public Routes === */}
               <Route path="/login" element={<LoginPage />} />
               <Route path="/register" element={<RegisterPage />} />
-              <Route path="/search" element={<SearchResultsPage />} />
-              <Route
-                path="/select-seat/:tripId"
-                element={<SeatSelectionPage />}
-              />
-              <Route path="/checkout" element={<CheckoutPage />} />
-              <Route path="/confirmation" element={<ConfirmationPage />} />
+
+              {/* === Private Routes === */}
+              <Route element={<PrivateRoute />}>
+                <Route path="/" element={<HomePage />} />
+                <Route path="/search" element={<SearchResultsPage />} />
+                <Route
+                  path="/select-seat/:tripId"
+                  element={<SeatSelectionPage />}
+                />
+                <Route path="/checkout" element={<CheckoutPage />} />
+                <Route path="/confirmation" element={<ConfirmationPage />} />
+              </Route>
             </Routes>
           </main>
         </Router>

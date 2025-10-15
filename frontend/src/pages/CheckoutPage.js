@@ -57,7 +57,60 @@ const CheckoutPage = () => {
     }
   };
 
-  // ... (ส่วนที่เหลือของ component เหมือนเดิม) ...
+  const { selectedTrip, selectedSeats } = bookingDetails;
+
+  if (!isAuthenticated) {
+    return <div className="loader">กำลังเปลี่ยนเส้นทาง...</div>;
+  }
+
+  if (!selectedTrip || !selectedSeats || selectedSeats.length === 0) {
+    return <p>ไม่พบข้อมูลการจอง กรุณากลับไปหน้าแรก</p>;
+  }
+
+  const totalPrice = selectedTrip.price * selectedSeats.length;
+
+  return (
+    <div className="card">
+      <h1>กรอกข้อมูลและยืนยัน</h1>
+      <div className="summary-box">
+        <h3>สรุปรายการ</h3>
+        <p>
+          <strong>เส้นทาง:</strong> {selectedTrip.from} → {selectedTrip.to}
+        </p>
+        <p>
+          <strong>ที่นั่ง:</strong>{" "}
+          {selectedSeats.map((s) => s.seat_number).join(", ")}
+        </p>
+        <p>
+          <strong>ราคารวม:</strong> {totalPrice} บาท
+        </p>
+      </div>
+
+      <form onSubmit={handleSubmit} style={{ marginTop: "2rem" }}>
+        <div className="form-group">
+          <label>ชื่อ-นามสกุล</label>
+          <input
+            type="text"
+            value={passengerName}
+            onChange={(e) => setPassengerName(e.target.value)}
+            required
+          />
+        </div>
+        <div className="form-group">
+          <label>เบอร์โทรศัพท์</label>
+          <input
+            type="text"
+            value={passengerPhone}
+            onChange={(e) => setPassengerPhone(e.target.value)}
+            required
+          />
+        </div>
+        <button type="submit" className="btn">
+          ยืนยันการจอง
+        </button>
+      </form>
+    </div>
+  );
 };
 
 export default CheckoutPage;

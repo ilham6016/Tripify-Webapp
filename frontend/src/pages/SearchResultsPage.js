@@ -9,7 +9,34 @@ const SearchResultsPage = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    // ... โค้ด fetch API เหมือนเดิม ...
+    if (!bookingDetails.searchParams) {
+      navigate("/");
+      return;
+    }
+
+    const fetchTrips = async () => {
+      setLoading(true);
+      try {
+        const { from, to, date } = bookingDetails.searchParams;
+        const response = await fetch(
+          `http://localhost/van-booking-api/search_trips.php?from=${from}&to=${to}&date=${date}`
+        );
+        const result = await response.json();
+
+        if (result.success === 1) {
+          setTrips(result.trips);
+        } else {
+          console.error("API Error:", result.message);
+        }
+      } catch (error) {
+        console.error("เกิดข้อผิดพลาดในการค้นหาเที่ยวรถ:", error);
+        alert("ไม่สามารถเชื่อมต่อกับเซิร์ฟเวอร์ได้");
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchTrips();
   }, [bookingDetails.searchParams, navigate]);
 
   const handleSelectTrip = (trip) => {

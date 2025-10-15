@@ -14,8 +14,8 @@ const ConfirmationPage = () => {
 
   if (!bookingId) {
     return (
-      <div>
-        <p>ไม่พบข้อมูลการจอง</p>
+      <div className="card">
+        <p style={{ textAlign: "center" }}>ไม่พบข้อมูลการจอง</p>
         <Link to="/" className="btn">
           กลับหน้าแรก
         </Link>
@@ -23,13 +23,16 @@ const ConfirmationPage = () => {
     );
   }
 
+  // สร้างรหัสการจองให้ดูดีขึ้น
+  const displayBookingId = `VANGO-${String(bookingId).padStart(5, "0")}`;
+
   return (
-    <div>
-      <h1 style={{ color: "green" }}>✔ การจองสำเร็จ!</h1>
+    <div className="card" style={{ textAlign: "center" }}>
+      <h1 style={{ color: "#28a745" }}>✔ การจองสำเร็จ!</h1>
       <p>ขอบคุณที่ใช้บริการครับ นี่คือรายละเอียดการจองของคุณ:</p>
 
-      <div className="summary-box">
-        <h3>รหัสการจอง: {bookingId}</h3>
+      <div className="summary-box" style={{ textAlign: "left" }}>
+        <h3>รหัสการจอง: {displayBookingId}</h3>
         <p>
           <strong>ผู้โดยสาร:</strong> {passengerInfo?.name}
         </p>
@@ -38,18 +41,14 @@ const ConfirmationPage = () => {
         </p>
         <hr />
         <p>
-          <strong>เส้นทาง:</strong> {searchParams?.from} → {searchParams?.to}
+          <strong>เส้นทาง:</strong> {selectedTrip?.from} → {selectedTrip?.to}
         </p>
         <p>
           <strong>วันที่เดินทาง:</strong> {searchParams?.date}
         </p>
         <p>
-          <strong>เวลา:</strong> {selectedTrip?.departureTime} -{" "}
-          {selectedTrip?.arrivalTime}
-        </p>
-        <p>
           <strong>ที่นั่ง:</strong>{" "}
-          {selectedSeats.map((s) => s.seatNumber).join(", ")}
+          {selectedSeats.map((s) => s.seat_number).join(", ")}
         </p>
       </div>
 
