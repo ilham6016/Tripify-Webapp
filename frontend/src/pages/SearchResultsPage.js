@@ -19,7 +19,7 @@ const SearchResultsPage = () => {
       try {
         const { from, to, date } = bookingDetails.searchParams;
         const response = await fetch(
-          `http://localhost/van-booking-api/search_trips.php?from=${from}&to=${to}&date=${date}`
+          `http://fms.pnu.ac.th/ilhammm/van-booking-api/search_trips.php?from=${from}&to=${to}&date=${date}`
         );
         const result = await response.json();
 

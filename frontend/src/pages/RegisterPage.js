@@ -26,7 +26,7 @@ const RegisterPage = () => {
 
     try {
       const response = await fetch(
-        "http://localhost/van-booking-api/register.php",
+        "http://fms.pnu.ac.th/ilhammm/van-booking-api/register.php",
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },

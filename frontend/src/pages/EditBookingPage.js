@@ -24,7 +24,7 @@ const EditBookingPage = () => {
       if (!user) return;
       try {
         const response = await fetch(
-          `http://localhost/van-booking-api/get_booking_details.php?booking_id=${bookingId}&user_id=${user.id}`
+          `http://fms.pnu.ac.th/ilhammm/van-booking-api/get_booking_details.php?booking_id=${bookingId}&user_id=${user.id}`
         );
         const result = await response.json();
         if (result.success === 1) {
@@ -75,7 +75,7 @@ const EditBookingPage = () => {
 
     try {
       const response = await fetch(
-        "http://localhost/van-booking-api/update_booking.php",
+        "http://fms.pnu.ac.th/ilhammm/van-booking-api/update_booking.php",
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },

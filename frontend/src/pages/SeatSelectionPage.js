@@ -15,7 +15,7 @@ const SeatSelectionPage = () => {
       setLoading(true);
       try {
         const response = await fetch(
-          `http://localhost/van-booking-api/get_trip_details.php?trip_id=${tripId}`
+          `http://fms.pnu.ac.th/ilhammm/van-booking-api/get_trip_details.php?trip_id=${tripId}`
         );
         const result = await response.json();
 

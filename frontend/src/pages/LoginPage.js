@@ -20,7 +20,7 @@ const LoginPage = () => {
 
     try {
       const response = await fetch(
-        "http://localhost/van-booking-api/login.php",
+        "http://fms.pnu.ac.th/ilhammm/van-booking-api/login.php",
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },

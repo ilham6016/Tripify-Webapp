@@ -16,7 +16,7 @@ const MyBookingsPage = () => {
     setLoading(true);
     try {
       const response = await fetch(
-        `http://localhost/van-booking-api/my_bookings.php?user_id=${user.id}`
+        `http://fms.pnu.ac.th/ilhammm/van-booking-api/my_bookings.php?user_id=${user.id}`
       );
       const result = await response.json();
 
@@ -47,7 +47,7 @@ const MyBookingsPage = () => {
     }
     try {
       const response = await fetch(
-        "http://localhost/van-booking-api/cancel_booking.php",
+        "http://fms.pnu.ac.th/ilhammm/van-booking-api/cancel_booking.php",
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },

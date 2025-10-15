@@ -39,7 +39,7 @@ const CheckoutPage = () => {
 
     try {
       const response = await fetch(
-        "http://localhost/van-booking-api/create_booking.php",
+        "http://fms.pnu.ac.th/ilhammm/van-booking-api/create_booking.php",
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },

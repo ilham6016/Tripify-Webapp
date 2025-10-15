@@ -23,7 +23,7 @@ const HomePage = () => {
     const fetchLocations = async () => {
       try {
         const response = await fetch(
-          "http://localhost/van-booking-api/get_locations.php"
+          "http://fms.pnu.ac.th/ilhammm/van-booking-api/get_locations.php"
         );
         const result = await response.json();
         if (result.success === 1) {
