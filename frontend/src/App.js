@@ -11,6 +11,8 @@ import PrivateRoute from "./components/PrivateRoute";
 
 // Import Pages
 import HomePage from "./pages/HomePage";
+import MyBookingsPage from "./pages/MyBookingsPage";
+import EditBookingPage from "./pages/EditBookingPage";
 import SearchResultsPage from "./pages/SearchResultsPage";
 import SeatSelectionPage from "./pages/SeatSelectionPage";
 import CheckoutPage from "./pages/CheckoutPage";
@@ -36,6 +38,11 @@ function App() {
               {/* === Private Routes === */}
               <Route element={<PrivateRoute />}>
                 <Route path="/" element={<HomePage />} />
+                <Route path="/my-bookings" element={<MyBookingsPage />} />
+                <Route
+                  path="/edit-booking/:bookingId"
+                  element={<EditBookingPage />}
+                />
                 <Route path="/search" element={<SearchResultsPage />} />
                 <Route
                   path="/select-seat/:tripId"

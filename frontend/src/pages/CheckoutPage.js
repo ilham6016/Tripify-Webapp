@@ -23,11 +23,18 @@ const CheckoutPage = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    // ตรวจสอบให้แน่ใจว่า user object มีข้อมูลครบ
+    if (!user || !user.id) {
+      alert("เกิดข้อผิดพลาด: ไม่พบข้อมูลผู้ใช้");
+      return;
+    }
+
     const bookingPayload = {
       tripId: bookingDetails.selectedTrip.id,
       seatIds: bookingDetails.selectedSeats.map((s) => s.id),
       passengerName,
       passengerPhone,
+      userId: user.id, // <-- **บรรทัดนี้สำคัญที่สุด!** ต้องมีอยู่
     };
 
     try {

@@ -14,12 +14,13 @@ const Navbar = () => {
   return (
     <nav className="navbar">
       <Link to="/" className="nav-brand">
-        🚐 Vango
+        Vango 🚐
       </Link>
       <div className="nav-links">
         {isAuthenticated ? (
           <>
-            <span>สวัสดี, {user.name}</span>
+            <span>สวัสดี คุณ {user.name}</span>
+            <Link to="/my-bookings">การจองของฉัน</Link>
             <button onClick={handleLogout} className="nav-button">
               ออกจากระบบ
             </button>
